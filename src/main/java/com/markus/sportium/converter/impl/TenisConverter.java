@@ -29,7 +29,8 @@ public class TenisConverter extends AbstractSportConverter implements ISportConv
         String rightParen = "(\\))";
         String stringScore = "(.*)";
         String teamBName = "(.*)";
-        String pattern = teamName + whiteSpace + leftParent + teanSets + rightParen + whiteSpace + teanGames + whiteSpace + stringScore + stringTraco + stringScore + whiteSpace + teanGames + whiteSpace + leftParent + teanSets + rightParen + whiteSpace + teamBName;
+        String teamAName = "(.*)";
+        String pattern = teamAName + whiteSpace + leftParent + teanSets + rightParen + whiteSpace + teanGames + whiteSpace + stringScore + stringTraco + stringScore + whiteSpace + teanGames + whiteSpace + leftParent + teanSets + rightParen + whiteSpace + teamBName;
         return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     }
 

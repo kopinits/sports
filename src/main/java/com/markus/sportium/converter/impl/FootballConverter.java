@@ -16,17 +16,18 @@ public class FootballConverter extends AbstractSportConverter implements ISportC
         Matcher m = getPattern().matcher(getInputToProcess());
         if (m.find()) {
             football = new Football();
-            football.setTeamAName(m.group(1));
-            football.setTeamAScore(m.group(3));
-            football.setTeamBName(m.group(7));
-            football.setTeamBScore(m.group(5));
+            football.setTeamAName(m.group(1).trim());
+            football.setTeamAScore(m.group(3).trim());
+            football.setTeamBName(m.group(7).trim());
+            football.setTeamBScore(m.group(5).trim());
         }
         return football;
     }
 
     @Override
     protected Pattern getPattern() {
-        String pattern = teamName + whiteSpace + intScore + stringTraco + intScore + whiteSpace + teamName;
+        String teamAName = "(.*)";
+        String pattern = teamAName + whiteSpace + intScore + stringTraco + intScore + whiteSpace + teamAName;
         return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     }
 }

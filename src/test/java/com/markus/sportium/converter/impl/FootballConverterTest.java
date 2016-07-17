@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml")
 public class FootballConverterTest {
-    private String validResult = "Football: {teamAName='Barcelona', teamBName='Real Madrid', teamAScore='3', teamBScore='2'}";
+    private String validResult = "Football: {teamAName='F.C. Barcelona', teamBName='Real Madrid', teamAScore='3', teamBScore='2'}";
     private String validInput = "F.C. Barcelona 3-2 Real Madrid";
     private String invalidInput1 = "Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) *Varvara Lepchenko";
     private String invalidInput2 = "Pittsburgh Steelers 3-AS Minnesota Vikings Quarter";

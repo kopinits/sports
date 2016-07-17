@@ -1,8 +1,8 @@
 package com.markus.sportium.converter.impl;
 
+import com.markus.sportium.beans.AmericanFootball;
 import com.markus.sportium.beans.Sport;
 import com.markus.sportium.converter.ISportConverter;
-import com.markus.sportium.beans.AmericanFootball;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
@@ -15,12 +15,16 @@ public class AmericanFootballConverter extends AbstractSportConverter implements
         AmericanFootball americanFootball = null;
         Matcher m = verifyConverterType(getInputToProcess());
         if (m.find()) {
-            americanFootball = new AmericanFootball();
-            americanFootball.setTeamAName(m.group(1));
-            americanFootball.setTeamAScore(m.group(3));
-            americanFootball.setTeamBName(m.group(7));
-            americanFootball.setTeamBScore(m.group(5));
-            americanFootball.setCurrentPeriod(m.group(8) + m.group(9));
+            if (m.group(11) != null) {
+                if (m.group(11).equals("Quarter")) {
+                    americanFootball = new AmericanFootball();
+                    americanFootball.setTeamAName(m.group(1).trim());
+                    americanFootball.setTeamAScore(m.group(3).trim());
+                    americanFootball.setTeamBName(m.group(7).trim());
+                    americanFootball.setTeamBScore(m.group(5).trim());
+                    americanFootball.setCurrentPeriod(m.group(8).trim() + m.group(9).trim() + " " + m.group(11).trim());
+                }
+            }
         }
         return americanFootball;
     }
@@ -28,8 +32,10 @@ public class AmericanFootballConverter extends AbstractSportConverter implements
     @Override
     protected Pattern getPattern() {
         String quarterNumber = "(\\d+)";
-        String quarterString = "([Quarter].*)";
-        String pattern = teamName + whiteSpace + intScore + stringTraco + intScore + whiteSpace + teamName + quarterNumber + quarterString;
+        String quarterPosition = "(st|nd|rd|th)";
+        String quarterString = "(.*)";
+        String teamAName = "(.*)";
+        String pattern = teamAName + whiteSpace + intScore + stringTraco + intScore + whiteSpace + teamAName + quarterNumber + quarterPosition + whiteSpace + quarterString;
         return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
     }
 }

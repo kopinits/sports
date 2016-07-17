@@ -16,9 +16,11 @@ public class TenisConverterTest {
     private String validResult = "Tenis: {teamAName='Anna Karolina Schmiedlova', teamBName='Varvara Lepchenko', teamAScore='40', teamBScore='Adv', teamAGames='1', teamBGames='1', teamBServing='true', scoreboard: { elements: [ { title: 'Sets', teamAScore:'1', teamBScore='0'} ] } }";
     private String validResult2 = "Tenis: {teamAName='Anna Karolina Schmiedlova', teamBName='Varvara Lepchenko', teamAScore='40', teamBScore='Adv', teamAGames='1', teamBGames='1', teamBServing='false', scoreboard: { elements: [ { title: 'Sets', teamAScore:'1', teamBScore='0'} ] } }";
     private String validInput = "Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) *Varvara Lepchenko";
+    private String validInput2 = "Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) Varvara Lepchenko";
     private String invalidInput1 = "Pittsburgh Steelers 3-7 Minnesota Vikings 3rd Quarter";
     private String invalidInput2 = "F.C. Barcelona 3-2 Real Madrid";
-    private String validInput2 = "Anna Karolina Schmiedlova (1) 1 40-Adv 1 (0) Varvara Lepchenko";
+    private String invalidInput3 = "Anna Karolina Schmiedlova (1) 40-Adv 1 (0) Varvara Lepchenko";
+    private String invalidInput4 = "Anna Karolina Schmiedlova (1) 1 40-Adv 1 Varvara Lepchenko";
 
     @Autowired
     private TenisConverter converter;
@@ -48,6 +50,20 @@ public class TenisConverterTest {
     @Test
     public void testInvalidInput2() {
         converter.setInputToProcess(invalidInput2);
+        Sport convertInputToSport = converter.convertInputToSport();
+        assertEquals(null, convertInputToSport);
+    }
+
+    @Test
+    public void testInvalidInput3() {
+        converter.setInputToProcess(invalidInput3);
+        Sport convertInputToSport = converter.convertInputToSport();
+        assertEquals(null, convertInputToSport);
+    }
+
+    @Test
+    public void testInvalidInput4() {
+        converter.setInputToProcess(invalidInput4);
         Sport convertInputToSport = converter.convertInputToSport();
         assertEquals(null, convertInputToSport);
     }
